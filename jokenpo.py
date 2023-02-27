@@ -76,12 +76,12 @@ while jogar_novamente.lower() == "sim":
 
     jogar_novamente = input("Deseja jogar novamente? (sim/não)")
 
-    while jogar_novamente.lower() not in ["s", "sim", "não", "nao", "n"]:
-        jogar_novamente = input("Resposta inválida. Deseja jogar novamente? (sim/não)")
+    while jogar_novamente.lower() not in ["sim", "n", "nao"]:
+       jogar_novamente = input("Resposta inválida. Deseja jogar novamente? (sim/não)")
 
-    if jogar_novamente.lower() in ["não", "nao", "n", "N"]:
-        print("Obrigado por jogar!")
-        print("Pontuação final:")
-        print("Jogador:", pontos_jogador)
-        print("Computador:", pontos_computador)
-        break
+    if jogar_novamente.lower() in ["n", "nao", "nao"]:
+     print("Obrigado por jogar!")
+     print("Pontuação final:")
+     print("Jogador:", pontos_jogador)
+     print("Computador:", pontos_computador)
+     break
