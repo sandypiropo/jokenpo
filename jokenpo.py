@@ -35,7 +35,7 @@ while jogar_novamente.lower() == "sim":
                   \033[1;33mEMPATE\033[0m'''))
         elif jogador == 2:
             print(emojize('''Você escolheu Papel :hand_with_fingers_splayed:
-                  \033[1;32mVOCÊ VENCEU\033[0m'''))
+                  \033[1;32mVOCÊ VENCEU!\033[0m'''))
             pontos_jogador += 1
         elif jogador == 3:
             print(emojize('''Você escolheu Tesoura :victory_hand:
@@ -54,7 +54,7 @@ while jogar_novamente.lower() == "sim":
                    \033[1;33mEMPATE\033[0m'''))
         elif jogador == 3:
             print(emojize('''Você escolheu Tesoura :victory_hand:
-                   \033[1;32mVOCÊ VENCEU\033[0m'''))
+                   \033[1;32mVOCÊ VENCEU!\033[0m'''))
             pontos_jogador += 1
         else:
             print('Jogada inválida')
@@ -62,7 +62,7 @@ while jogar_novamente.lower() == "sim":
         print(emojize('O computador escolheu {} :victory_hand:'.format(lista[computador])))
         if jogador == 1:
             print(emojize('''Você jogou Pedra :raised_fist:
-                  \033[1;32mVOCÊ VENCEU\033[0m'''))
+                  \033[1;32mVOCÊ VENCEU!\033[0m'''))
             pontos_jogador += 1
         elif jogador == 2:
             print(emojize('''Você escolheu Papel :hand_with_fingers_splayed:
