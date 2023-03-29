@@ -1,25 +1,29 @@
-from random import randint
+from random import choice
 from time import sleep
 from emoji import emojize
 
-lista = ['Pedra', 'Papel', 'Tesoura']
+options = {
+    1: {'name': 'Pedra', 'emoji': ':raised_fist:'},
+    2: {'name': 'Papel', 'emoji': ':hand_with_fingers_splayed:'},
+    3: {'name': 'Tesoura', 'emoji': ':victory_hand:'}
+}
 
-pontos_jogador = 0
-pontos_computador = 0
+player_score = 0
+computer_score = 0
 
-jogar_novamente = "sim"
+play_again = "S"
 
-while jogar_novamente.lower() == "sim":
-    computador = randint(0, 2)
+while play_again.lower() == "s":
+    computer_choice = choice(list(options.keys()))
     print('Jokenpo vs Computador')
-    print(emojize('''Faça a sua escolha:
-        [1] PEDRA :raised_fist:
-        [2] PAPEL :hand_with_fingers_splayed:
-        [3] TESOURA :victory_hand:'''))
-    opcoes = [1, 2, 3]
-    jogador = int(input('Sua opção: '))
-    while jogador not in opcoes:
-        jogador = int(input('Digite um valor válido [1, 2 ou 3]. Qual é a sua jogada? '))
+    print(emojize(f'''Faça a sua escolha:
+        [1] {options[1]['name']} {options[1]['emoji']}
+        [2] {options[2]['name']} {options[2]['emoji']}
+        [3] {options[3]['name']} {options[3]['emoji']}'''))
+    player_choice = int(input('Sua opção: '))
+    while player_choice not in options.keys():
+        player_choice = int(
+            input('Digite um valor válido [1, 2 ou 3]. Qual é a sua jogada? '))
 
     print('JO')
     sleep(1)
@@ -28,60 +32,25 @@ while jogar_novamente.lower() == "sim":
     print('PO')
     sleep(1)
 
-    if computador == 0:
-        print(emojize('O computador escolheu {} :raised_fist:'.format(lista[computador])))
-        if jogador == 1:
-            print(emojize('''Você escolheu :raised_fist:
-                  \033[1;33mEMPATE\033[0m'''))
-        elif jogador == 2:
-            print(emojize('''Você escolheu Papel :hand_with_fingers_splayed:
-                  \033[1;32mVOCÊ VENCEU\033[0m'''))
-            pontos_jogador += 1
-        elif jogador == 3:
-            print(emojize('''Você escolheu Tesoura :victory_hand:
-                  \033[1;31mCOMPUTADOR VENCE\033[0m'''))
-            pontos_computador += 1
-        else:
-            print('Jogada inválida')
-    elif computador == 1:
-        print(emojize('O computador escolheu {} :hand_with_fingers_splayed:'.format(lista[computador])))
-        if jogador == 1:
-            print(emojize('''Você escolheu Pedra :raised_fist:
-                   \033[1;31mCOMPUTADOR VENCE\033[0m'''))
-            pontos_computador += 1
-        elif jogador == 2:
-            print(emojize('''Você escolheu Papel :hand_with_fingers_splayed:
-                   \033[1;33mEMPATE\033[0m'''))
-        elif jogador == 3:
-            print(emojize('''Você escolheu Tesoura :victory_hand:
-                   \033[1;32mVOCÊ VENCEU\033[0m'''))
-            pontos_jogador += 1
-        else:
-            print('Jogada inválida')
-    elif computador == 2:
-        print(emojize('O computador escolheu {} :victory_hand:'.format(lista[computador])))
-        if jogador == 1:
-            print(emojize('''Você jogou Pedra :raised_fist:
-                  \033[1;32mVOCÊ VENCEU\033[0m'''))
-            pontos_jogador += 1
-        elif jogador == 2:
-            print(emojize('''Você escolheu Papel :hand_with_fingers_splayed:
-                  \033[1;31mCOMPUTADOR VENCE\033[0m'''))
-            pontos_computador += 1
-        elif jogador == 3:
-            print(emojize('''Você escolheu Tesoura :victory_hand:
-                \033[1;33mEMPATE\033[0m'''))
-        else:
-           print('Jogada inválida')
+    print(emojize(
+        f'O computador escolheu {options[computer_choice]["name"]} {options[computer_choice]["emoji"]}'))
 
-    jogar_novamente = input("Deseja jogar novamente? (sim/não)")
+    if player_choice == computer_choice:
+        print(emojize(
+            f'Você escolheu {options[player_choice]["name"]} {options[player_choice]["emoji"]}\n\033[1m\033[33mEMPATE\033[0m'))
+    elif player_choice == 1 and computer_choice == 2 or player_choice == 2 and computer_choice == 3 or player_choice == 3 and computer_choice == 1:
+        print(emojize(
+            f'Você escolheu {options[player_choice]["name"]} {options[player_choice]["emoji"]}\n\033[1m\033[32mVOCÊ VENCEU\033[0m'))
+        player_score += 1
+    else:
+        print(emojize(
+            f'Você escolheu {options[player_choice]["name"]} {options[player_choice]["emoji"]}\n\033[1m\033[31mCOMPUTADOR VENCE\033[0m'))
+        computer_score += 1
 
-    while jogar_novamente.lower() not in ["s", "sim", "não", "nao", "n"]:
-        jogar_novamente = input("Resposta inválida. Deseja jogar novamente? (sim/não)")
+    play_again = input("Deseja jogar novamente? (S/N)").upper().strip()
+    while play_again not in "SN":
+        play_again = input(
+            'Digite "S" para jogar novamente ou "N" para sair: ').upper().strip()
 
-    if jogar_novamente.lower() in ["não", "nao", "n", "N"]:
-        print("Obrigado por jogar!")
-        print("Pontuação final:")
-        print("Jogador:", pontos_jogador)
-        print("Computador:", pontos_computador)
-        break
+print(
+    f'\nFim de jogo!\nPlacar final:\nVocê \033[1m\033[32m{player_score}\033[0m\033[0m x \033[1m\033[31m{computer_score}\033[0m\033[0m Computador')
